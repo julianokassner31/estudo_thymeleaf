@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+	<nav th:replace="fragments/head :: menu"> </nav>
+	<form id="formBuscarProduto" action="#" th:action="@{/produto/listar}" method="GET">
+		<div class="col-3 mb-3">
+			<div class="form-group">
+				<label>Nome Produto</label>
+				<input class="form-control mr-2" type="text" name="query" th:value="${query}"/>
+				<input type="hidden" name="page" th:value="${page}"/>
+				<input type="hidden" disabled name="totalPaginas" th:value="${totalPaginas}"/>
+			</div>
+			<div class="form-group form-check">
+				<input type="checkbox" class="form-check-input" name="ativo" th:checked="${ativo}"/>
+				<label class="form-check-label"> Somente ativos </label>
+			</div>
+			<div class="form-group">
+				<label>Qtd. por página</label>
+				<select class="custom-select mr-2" name="size" th:value="${size}">
+					<option th:selected="${size == 10}" value="10">10</option>
+					<option th:selected="${size == 30}" value="30">30</option>
+					<option th:selected="${size == 50}" value="50">50</option>
+				</select>
+			</div>
+			<button type="submit" class="col-3 btn btn-primary btn-md">Buscar</button>
+		</div>
+	</form>
+	<div th:if="${produtos != null and produtos.size() > 0}">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Nome</th>
+					<th scope="col">Descrição</th>
+					<th scope="col">Valor</th>
+					<th scope="col">Data Cad.</th>
+					<th scope="col">Ativo</th>
+					<th scope="col">Ação</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="produto: ${produtos}">
+					<th scope="row" th:text="${produto.id}" />
+					<td th:text="${produto.nome}" />
+					<td th:text="${produto.descricao}" />
+					<td th:text="${'R$' + produto.valor}" />
+					<td th:text="${produto.dataCadastro}" />
+					<td th:text="${produto.ativo ? 'Sim' : 'Não'}" />
+					<td>
+						<div sec:authorize="hasAnyRole('ADMIN', 'ESCRITA')">
+							<form id="formEditar" method="GET">
+								<button type="button" class="btn btn-success btn-md" th:attr="onclick=|editarProduto('${produto.id}')|">Editar</button>
+								<button type="button" class="btn btn-danger btn-md">Desativar</button>
+							</form>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination">
+		    	<li class="page-item"><a class="page-link" href="#" th:attr="onclick=|buscarProdutoPrevNext('Prev')|">Anterior</a></li>
+			    	<th:block th:each="i: ${#numbers.sequence(0, totalPaginas-1)}">
+					    <li class="page-item"><a class="page-link" href="#" th:text="${i+1}" th:attr="onclick=|buscarProdutosPagina('${i}')|"></a></li>
+					</th:block>
+		    	<li class="page-item"><a class="page-link" href="#" th:attr="onclick=|buscarProdutoPrevNext('Next')|">Próximo</a></li>
+		  	</ul>
+		</nav>
+	</div>
+	<div th:if="${produtos == null or produtos.size() == 0}">
+		<span>Nenhum produto encontrado!</span>
+	</div>
+	<script type="text/javascript" src="../../../static/js/produto/scripts.js" th:src="@{/js/produto/scripts.js}"></script>
+</body>
+</html>

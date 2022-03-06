@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+body {
+	margin: 10px;
+}
+.senha-invalida {
+	display: none;
+	color: red
+}
+
+div.logout {
+	background-color: #007bff;
+	border-color: #007bff;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 3px;
+	padding: 5px 10px;
+	margin: 0px 5px;
+}
+
+div.logout:hover {
+	background-color: #0069d9;
+	border-color: #0069d9;
+}
+
+a.logout {
+	color: white;
+}
+a.logout:hover {
+	text-decoration: none;
+}
+
+.auth {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-between;
+}

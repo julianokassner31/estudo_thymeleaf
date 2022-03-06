@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<nav th:replace="fragments/head :: menu"> </nav>
+	<form class="col-4" action="#" th:action="@{/usuario/cadastrar}" th:object="${usuario}" method="post" autocomplete="off">
+		<div class="mb-3">
+		    <label for="nome" class="form-label">Nome Completo</label>
+		    <input type="text" class="form-control" id="nome" name="nome">
+	  	</div>
+	  	<div class="mb-3">
+		    <label for="login" class="form-label">Login</label>
+		    <input type="text" class="form-control" id="login" name="login">
+	  	</div>
+	  	<div class="mb-3">
+		    <label for="senha" class="form-label">Senha</label>
+		    <input type="password" class="form-control" id="senha" name="senha">
+	  	</div>
+		<div class="mb-3">
+		  <label for="repitaSenha" class="form-label">Repita a senha</label>
+		  <input type="password" class="form-control" id="repitaSenha" onkeyup="matchSenha()">
+		  <div class="senha-invalida">As senhas não são iguais.</div>
+		</div>
+		<div class="mb-3">
+		 	<label class="form-label">Permissões</label>
+		 	<br>
+		    <th:block th:each="role : ${roles}">
+            	<input type="checkbox" name="roles" th:value="${role.id}" onclick="disableCheckBoxesPermissoes()"/>
+             	<label th:text="${role.nome}"></label>
+           </th:block>
+	  	</div>
+  		<button type="submit" class="btn btn-primary btn-md" sec:authorize="hasAnyRole('ADMIN', 'ESCRITA')">Cadastrar</button>
+	</form>
+	<br>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Login</th>
+				<th scope="col">Data Cadastro</th>
+				<th scope="col">Ação</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="usuario: ${usuarios}">
+				<th scope="row" th:text="${usuario.id}" />
+				<td th:text="${usuario.nome}" />
+				<td th:text="${usuario.login}" />
+				<td th:text="${usuario.dataCadastro}" />
+				<td>
+					<form th:action="${'/usuario/' + usuario.id}" method="POST">
+     					<button type="submit" class="btn btn-danger btn-md" th:disabled="${#authentication.name eq usuario.login}">Deletar</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<script type="text/javascript" src="../../../static/js/usuario/scripts.js" th:src="@{/js/usuario/scripts.js}"></script>
+</body>
+</html>
