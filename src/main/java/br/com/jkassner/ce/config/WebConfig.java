@@ -1,5 +1,6 @@
 package br.com.jkassner.ce.config;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -77,7 +79,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     	SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.setAdditionalDialects(Set.of(new SpringSecurityDialect()));
+        Set<IDialect> set = new HashSet<>();
+        set.add(new SpringSecurityDialect());
+        templateEngine.setAdditionalDialects(set);
         
         return templateEngine;
     }

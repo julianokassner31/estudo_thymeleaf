@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -86,7 +87,7 @@ public class Usuario implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
-		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getTipo().name())).toList();
+		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getTipo().name())).collect(Collectors.toList());
 	}
 	@Override
 	public String getPassword() {
