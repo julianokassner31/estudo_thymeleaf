@@ -1,6 +1,7 @@
-package br.com.jkassner.ce.service;
+package br.com.jkassner.ce.service.produto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import br.com.jkassner.ce.exceptions.ProdutoNotFoundException;
 import br.com.jkassner.ce.model.Usuario;
 import br.com.jkassner.ce.model.produto.Produto;
+import br.com.jkassner.ce.model.produto.ProdutoDto;
 import br.com.jkassner.ce.repository.produto.ProdutoRepository;
 import br.com.jkassner.ce.repository.produto.ProdutoSpecification;
 import br.com.jkassner.ce.utils.UsuarioLogadoUtils;
@@ -55,5 +57,10 @@ public class ProdutoServiceImpl implements ProdutoService {
 	@Override
 	public Produto findById(Long idProduto) throws ProdutoNotFoundException {
 		return produtoRepository.findById(idProduto).orElseThrow(ProdutoNotFoundException::new);
+	}
+
+	@Override
+	public List<ProdutoDto> findByNomeLike(String nome, Pageable page) {
+		return produtoRepository.findByNomeLike("%" + nome + "%", page);
 	}
 }

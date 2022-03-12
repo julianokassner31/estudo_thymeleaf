@@ -1,9 +1,12 @@
 package br.com.jkassner.ce.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.jkassner.ce.exceptions.ProdutoNotFoundException;
 import br.com.jkassner.ce.model.produto.Produto;
-import br.com.jkassner.ce.service.ProdutoService;
+import br.com.jkassner.ce.model.produto.ProdutoDto;
+import br.com.jkassner.ce.service.produto.ProdutoService;
 
 @Controller
 @RequestMapping("/produto")
@@ -75,5 +79,15 @@ public class ProdutoController {
 		modelAndView.setViewName("/produto/cadastrar.html");
 
 		return modelAndView;
+	}
+	
+	@GetMapping
+	public ResponseEntity<?> findByNome(@RequestParam(defaultValue = "0") int page, 
+			@RequestParam(defaultValue = "10") int size,
+			@RequestParam(defaultValue = "") String nome) {
+
+		List<ProdutoDto> produtos = produtoService.findByNomeLike(nome, PageRequest.of(page, size));
+
+		return ResponseEntity.ok(produtos);
 	}
 }

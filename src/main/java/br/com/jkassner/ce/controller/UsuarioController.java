@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.jkassner.ce.model.Usuario;
-import br.com.jkassner.ce.service.UsuarioService;
+import br.com.jkassner.ce.service.usuario.UsuarioService;
 
 @Controller
 @RequestMapping("/usuario")

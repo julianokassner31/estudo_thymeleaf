@@ -1,0 +1,17 @@
+.resultados {
+	display: none;
+	margin-top: 5px;
+	z-index: 100;
+	position: fixed;
+	background-color: white;
+}
+
+.resultado {
+	border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+	padding: .375rem 0.75rem;
+}
+.resultado:hover {
+	background-color: #f1f3f5;
+	cursor: pointer;
+}

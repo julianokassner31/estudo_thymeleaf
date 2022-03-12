@@ -1,5 +1,6 @@
 package br.com.jkassner.ce.model.produto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -14,8 +15,13 @@ import br.com.jkassner.ce.model.Empresa;
 import br.com.jkassner.ce.model.Usuario;
 
 @Entity
-public class Produto {
+public class Produto implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -1,4 +1,4 @@
-package br.com.jkassner.ce.service;
+package br.com.jkassner.ce.service.usuario;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 import br.com.jkassner.ce.model.Role;
 import br.com.jkassner.ce.model.TipoRole;
 import br.com.jkassner.ce.model.Usuario;
-import br.com.jkassner.ce.repository.RoleRepository;
-import br.com.jkassner.ce.repository.UsuarioRepository;
+import br.com.jkassner.ce.repository.usuario.RoleRepository;
+import br.com.jkassner.ce.repository.usuario.UsuarioRepository;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {

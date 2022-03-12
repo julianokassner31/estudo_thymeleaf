@@ -1,4 +1,4 @@
-package br.com.jkassner.ce.repository;
+package br.com.jkassner.ce.repository.usuario;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

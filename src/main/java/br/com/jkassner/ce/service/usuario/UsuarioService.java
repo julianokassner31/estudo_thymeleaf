@@ -1,4 +1,4 @@
-package br.com.jkassner.ce.service;
+package br.com.jkassner.ce.service.usuario;
 
 import java.util.List;
 
