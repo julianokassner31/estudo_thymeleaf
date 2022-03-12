@@ -11,6 +11,7 @@ $( document ).ready(function() {
 	    var resultados = $("#resultados");
 	    var nome = event.currentTarget.value;
 	    $("#produto").val("");
+	    $("#button").prop('disabled', true);
 	    resultados.empty();
 	    if (nome.length > 2) {
 			clearTimeout(timeout);
@@ -47,20 +48,10 @@ function selectProduto(id) {
 	document.getElementById("produto").value = id;
 	document.getElementById("nome").value = produto.innerText;
 	document.getElementById("resultados").click();
+	document.getElementById("button").removeAttribute("disabled");
 	
 	var divEstoqueList = document.getElementsByClassName("divEstoqueList")[0];
 	if (divEstoqueList) {
 		divEstoqueList.style.display = 'none';
-	}
-}
-
-function buscarProduto() {
-	var idproduto = document.getElementById("produto").value;
-	var nomeProduto = document.getElementById("nome").value;
-	
-	if (idproduto != "" && nomeProduto != "") {
-		document.getElementById("formBuscarProduto").submit();
-	} else {
-		alert("Selecione um produto.")
 	}
 }

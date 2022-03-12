@@ -24,7 +24,7 @@
 					<option th:selected="${size == 50}" value="50">50</option>
 				</select>
 			</div>
-			<button type="button" class="btn btn-primary btn-md" onclick="buscarProduto()">Buscar</button>
+			<button id="button" type="submit" class="btn btn-primary btn-md" disabled>Buscar</button>
 		</div>
 	</form>
 	<div class="divEstoqueList" th:if="${estoqueList != null and estoqueList.size() > 0}">
