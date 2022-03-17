@@ -2,8 +2,6 @@ package br.com.jkassner.ce.controller;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,6 +42,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value = "/cadastrar")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ESCRITA')")
 	public ModelAndView cadastrar(@ModelAttribute Usuario usuario) {
 		
 		usuarioService.salvar(usuario);
@@ -52,6 +51,7 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(value = "/{id}")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ESCRITA')")
 	public ModelAndView deletar(@PathVariable(value = "id") Long id) {
 		
 		usuarioService.deletar(id);
@@ -66,6 +66,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping(value="/roles")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ESCRITA')")
 	public ResponseEntity<?> getRoles() {
 		return ResponseEntity.ok(usuarioService.getRoles());
 	}

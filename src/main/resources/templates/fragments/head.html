@@ -20,8 +20,9 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 	<!-- JQuery -->
 
-	<link type="text/css" rel="stylesheet" href="../../../static/css/style.css" th:href="@{/css/style.css}" />
-	<script type="text/javascript" src="../../../static/js/currency.js" th:src="@{/js/currency.js}"></script>
+	<link type="text/css" rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+	<script type="text/javascript" src="../../static/js/currency.js" th:src="@{/js/currency.js}"></script>
+	<script type="text/javascript" src="../../static/js/modal/modal.js" th:src="@{/js/modal/modal.js}"></script>
 </head>
 
 <body>
@@ -35,10 +36,10 @@
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" th:href="@{/produto/listar}">Listar</a>
-						<a class="dropdown-item" th:href="@{/produto/cadastrar}">Cadastrar</a>
+						<a class="dropdown-item" th:href="@{/produto/cadastrar}" sec:authorize="hasAnyRole('ADMIN', 'ESCRITA')">Cadastrar</a>
 					</div>
 				</li>
-				<li class="nav-item dropdown">
+				<li sec:authorize="hasAnyRole('ADMIN', 'ESCRITA')" class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Usuários
@@ -55,7 +56,7 @@
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" th:href="@{/estoque/listar}">Listar</a>
-						<a class="dropdown-item" th:href="@{/estoque/lancamento}">Lançamento</a>
+						<a class="dropdown-item" th:href="@{/estoque/lancamento}" sec:authorize="hasAnyRole('ADMIN', 'ESCRITA')">Lançamento</a>
 					</div>
 				</li>
 			</ul>

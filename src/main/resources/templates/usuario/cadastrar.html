@@ -33,39 +33,6 @@
 	  	</div>
   		<button type="submit" class="btn btn-primary btn-md" sec:authorize="hasAnyRole('ADMIN', 'ESCRITA')">Cadastrar</button>
 	</form>
-	<br>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Nome</th>
-				<th scope="col">Login</th>
-				<th scope="col">Roles</th>
-				<th scope="col">Data Cadastro</th>
-				<th scope="col">Ação</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="usuario: ${usuarios}">
-				<th scope="row" th:text="${usuario.id}" />
-				<td th:text="${usuario.nome}" />
-				<td th:text="${usuario.login}" />
-				<td>
-					<div th:each="role: ${usuario.roles}" th:text="${role.nome}"/>
-				</td>
-				<td th:text="${usuario.dataCadastro}"/>
-				<td>
-					<form th:attr="id=|formDeleteUsuario${usuario.id}|" th:action="${'/usuario/' + usuario.id}" method="POST">
-     					<button type="button" class="btn btn-danger btn-md" th:disabled="${#authentication.name eq usuario.login}"
-     						th:attr="onclick=|deleteUsuario(${usuario.id})|">
-     						Deletar
-     					</button>
-					</form>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	
 	<script type="text/javascript" src="../../../static/js/usuario/scripts.js" th:src="@{/js/usuario/usuario.js}"></script>
 </body>
 </html>

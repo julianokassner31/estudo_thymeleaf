@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,6 +51,7 @@ public class ProdutoController {
 	}
 
 	@PostMapping("/salvar")
+	@PreAuthorize("hasAnyRole('ROLE_ESCRITA', 'ROLE_ADMIN')")
 	public ModelAndView salvar(@ModelAttribute Produto produto) throws ProdutoNotFoundException {
 
 		produtoService.save(produto);
@@ -61,6 +63,7 @@ public class ProdutoController {
 	}
 
 	@GetMapping("/cadastrar")
+	@PreAuthorize("hasAnyRole('ROLE_ESCRITA', 'ROLE_ADMIN')")
 	public ModelAndView cadastro() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("produto", new Produto());
@@ -70,6 +73,7 @@ public class ProdutoController {
 	}
 
 	@GetMapping(value = "/editar/{id}")
+	@PreAuthorize("hasAnyRole('ROLE_ESCRITA', 'ROLE_ADMIN')")
 	public ModelAndView editar(@PathVariable Long id) throws ProdutoNotFoundException {
 
 		Produto produto = produtoService.findById(id);

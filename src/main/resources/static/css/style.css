@@ -36,3 +36,7 @@ a.logout:hover {
 	align-items: center;
 	justify-content: space-between;
 }
+
+.modal {
+	background-color: #14131396;
+}

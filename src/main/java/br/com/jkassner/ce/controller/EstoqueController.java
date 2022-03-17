@@ -24,18 +24,6 @@ public class EstoqueController {
 	
 	@Autowired
 	private EstoqueService estoqueService;
-
-	@PostMapping
-	@PreAuthorize("hasRole('ROLE_ESCRITA')")
-	public ModelAndView add(@ModelAttribute Estoque estoque) {
-		
-		estoqueService.save(estoque);
-		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:/estoque/listar");
-		
-		return modelAndView;
-	}
 	
 	@GetMapping(value="/buscar")
 	public ModelAndView listarPorIdProduto(
@@ -70,6 +58,7 @@ public class EstoqueController {
 	}
 	
 	@GetMapping(value="/lancamento")
+	@PreAuthorize("hasAnyRole('ROLE_ESCRITA', 'ROLE_ADMIN')")
 	public ModelAndView lancamento() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("tipoLancamentos", TipoLancamentoEnum.values());
@@ -79,6 +68,7 @@ public class EstoqueController {
 	}
 	
 	@PostMapping(value="/lancar")
+	@PreAuthorize("hasAnyRole('ROLE_ESCRITA', 'ROLE_ADMIN')")
 	public ModelAndView lancar(@ModelAttribute Estoque estoque) {
 		
 		estoqueService.save(estoque);

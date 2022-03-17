@@ -17,4 +17,14 @@ function disableCheckBoxesPermissoes() {
 	}
 }
 
-
+function deleteUsuario(idUsuario) {
+	
+	var form = document.getElementById("formDeleteUsuario"+idUsuario);
+	
+	var modal = new Modal(
+			function(){form.submit()}, 
+			function(){}
+		);
+	
+	modal.open("Deseja realmente excluir o usuário?");
+}
