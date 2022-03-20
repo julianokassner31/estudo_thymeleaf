@@ -21,29 +21,38 @@ import br.com.jkassner.ce.service.usuario.UsuarioService;
 @RequestMapping("/usuario")
 public class UsuarioController {
 	
-	private static final String LISTAR_USUARIOS = "/usuario/listar_usuarios.html";
+	private static final String LISTAR_USUARIOS = "/usuario/listar.html";
 
 	@Autowired
 	private UsuarioService usuarioService;
 
 	
 	@GetMapping("/listar")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ESCRITA')")
 	public ModelAndView listar() {
 		
 		List<Usuario> usuarios = usuarioService.listar();
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("usuarios", usuarios);
-		modelAndView.addObject("roles", usuarioService.getRoles());
 		modelAndView.setViewName(LISTAR_USUARIOS);
 		
 		return modelAndView; 
 	}
 	
-	@PostMapping(value = "/cadastrar")
+	@GetMapping(value = "/cadastrar")
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ESCRITA')")
 	public ModelAndView cadastrar(@ModelAttribute Usuario usuario) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("roles", usuarioService.getRoles());
+		modelAndView.setViewName("/usuario/cadastrar.html");
+		
+		return modelAndView;
+	}
+	
+	@PostMapping(value = "/salvar")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ESCRITA')")
+	public ModelAndView salvar(@ModelAttribute Usuario usuario) {
 		
 		usuarioService.salvar(usuario);
 		
