@@ -11,10 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.Filters;
+import org.hibernate.annotations.ParamDef;
+
 import br.com.jkassner.ce.model.Empresa;
 import br.com.jkassner.ce.model.Usuario;
 
 @Entity
+@FilterDef(name="empresaIdFilter", parameters=@ParamDef( name="empresa", type="long" ) )
+@Filters({@Filter(name="empresaIdFilter", condition="empresa_id = :empresa")})
 public class Produto implements Serializable{
 
 	/**

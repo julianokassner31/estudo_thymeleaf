@@ -43,11 +43,9 @@ public class ProdutoServiceImpl implements ProdutoService {
 
 	@Override
 	public Page<Produto> findAll(String nome, Boolean ativo, Pageable page) {
-		Usuario usuario = UsuarioLogadoUtils.getUsuario();
 
 		Specification<Produto> spec = Specification.where(
-				ProdutoSpecification.empresa(usuario.getEmpresa())
-				.and(ProdutoSpecification.nome(nome))
+				ProdutoSpecification.nome(nome)
 				.and(ProdutoSpecification.ativo(ativo))
 			);
 

@@ -45,6 +45,7 @@ public class ProdutoController {
 		modelAndView.addObject("size", size);
 		modelAndView.addObject("ativo", ativo);
 		modelAndView.addObject("totalPaginas", pageProdutos.getTotalPages());
+		modelAndView.addObject("totalProdutos", pageProdutos.getTotalElements());
 		modelAndView.setViewName("/produto/listar.html");
 
 		return modelAndView;
